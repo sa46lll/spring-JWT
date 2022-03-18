@@ -1,0 +1,29 @@
+### JWT 인증
+
+- JSON 객체를 사용해 토큰 자체에 정보들을 저장하고 있는 Web Token
+- 구조
+    - Header
+        - Signature를 해싱하기 위한 알고리즘 정보들이 닮겨있음
+    - Payload
+        - 서버와 클라이언트가 주고 받는, 시스템에서 실제로 사용될 정보들을 담고 있음
+    - Signature
+        - Signature는 토큰의 유효성 검증을 위한 문자열
+        - 서버에서는 이 토큰이 유효한 토큰인지를 검증할 수 있음
+- 장점
+    - 중앙의 인증서버, 데이터 스토어에 대한 의존성 없음, 시스템 수평 확장 유리
+    - Base64 URL Safe Encoding > URL, Cokkie, Header 모두 사용 가능 → 범용성
+- 단점
+    - payload 정보가 많아지면 네트워크 사용량 증가, 데이터 설계 고려 필요
+    - 토큰이 클라이언트에 저장, 서버에서 클라이언트의 토큰을 조작할 수 있음
+- **기능**
+    - TokenProvider
+    - JwtFilter
+        - doFilter는 jwt 토큰의 인증정보를 SecurityContext에 저장하는 역할
+        - Request Header에서 토큰 정보를 꺼내오기 위해 resolveToken 추가
+    - JwtSecurityConfig
+        - TokenProvider, JwtFiler를 SecurityConfig에 적용할 JwtSecurityConfig 클래스 추가
+        - TokenProvider를 주입받아서 JwtFilter를 통해 Security 로직에 필터를 등록
+    - JwtAuthenticationEntryPoint
+        - 유효한 자격증명을 제공하지 않고 접근할 때 401 Unauthorized 에러 리턴
+    - JwtAccessDeniedHandler
+        - 필요한 권한이 존재하지 않는 경우 403 Forbidden 에러 리턴
