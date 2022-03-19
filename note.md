@@ -27,3 +27,19 @@
         - 유효한 자격증명을 제공하지 않고 접근할 때 401 Unauthorized 에러 리턴
     - JwtAccessDeniedHandler
         - 필요한 권한이 존재하지 않는 경우 403 Forbidden 에러 리턴
+    - Dto
+        - LoginDto
+        - TokenDto: Token 정보를 response할 때
+        - UserDto: 회원가입 시에 사용
+    - repository
+        - UserRepository 
+            - JpaRepository를 extends해서 findAll, save 등 사용
+            - findOneWithAuthoritiesByUsername 메소드는 username 기준으로 user 정보 가져올때 권한 정보고 같이 가져옴.
+    - service
+        - CustomUserDetailsService
+            - loadUserByUsername를 오버라이드해서 로그인시에 DB에서 유저정보와 권한정보를 가져옴
+            - 해당 정보를 기반으로 userdetails.User 객체 생성하고 리턴
+    - controller
+        - AuthController
+            - 
+        
