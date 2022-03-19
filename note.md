@@ -39,7 +39,14 @@
         - CustomUserDetailsService
             - loadUserByUsername를 오버라이드해서 로그인시에 DB에서 유저정보와 권한정보를 가져옴
             - 해당 정보를 기반으로 userdetails.User 객체 생성하고 리턴
-    - controller
-        - AuthController
-            - 
+        - UserService
+            - getUserWithAuthorities는 username 기준으로 정보를 가져오고
+            - getMyUserWithAuthorities는 SecurityContext에 저장된 username의 정보만 가져온다.
+      
+    - util
+        - SecurityUtil
+            - getCurrentUsername 메소드는 Security Context의 Authentication 객체를 이용해 username을 리턴
+- ROLE
+    - signup 메소드를 통한 회원가입: USER
+    - data.sql 자동생성된 admin 계정: USER, ADMIN
         
