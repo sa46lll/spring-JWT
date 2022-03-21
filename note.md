@@ -11,7 +11,7 @@
         - 서버에서는 이 토큰이 유효한 토큰인지를 검증할 수 있음
 - 장점
     - 중앙의 인증서버, 데이터 스토어에 대한 의존성 없음, 시스템 수평 확장 유리
-    - Base64 URL Safe Encoding > URL, Cokkie, Header 모두 사용 가능 → 범용성
+    - Base64 URL Safe Encoding > URL, Cookie, Header 모두 사용 가능 → 범용성
 - 단점
     - payload 정보가 많아지면 네트워크 사용량 증가, 데이터 설계 고려 필요
     - 토큰이 클라이언트에 저장, 서버에서 클라이언트의 토큰을 조작할 수 있음
@@ -34,7 +34,7 @@
     - repository
         - UserRepository 
             - JpaRepository를 extends해서 findAll, save 등 사용
-            - findOneWithAuthoritiesByUsername 메소드는 username 기준으로 user 정보 가져올때 권한 정보고 같이 가져옴.
+            - findOneWithAuthoritiesByUsername 메소드는 username 기준으로 user 정보 가져올때 권한 정보도 같이 가져옴.
     - service
         - CustomUserDetailsService
             - loadUserByUsername를 오버라이드해서 로그인시에 DB에서 유저정보와 권한정보를 가져옴
